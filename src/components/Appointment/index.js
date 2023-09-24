@@ -10,6 +10,7 @@ import useVisualMode from "hooks/useVisualMode";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
+const CREATE = "CREATE";
 
 export default function Appointment(props) {
 
@@ -28,7 +29,7 @@ export default function Appointment(props) {
           onEdit={() => console.log("EDIT")}
         />
       )}
-      {mode === EMPTY && <Empty onAdd={() => console.log("CREATE")} />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
     </article>
   );
 }
