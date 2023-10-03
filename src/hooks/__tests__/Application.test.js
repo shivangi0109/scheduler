@@ -2,6 +2,7 @@
   We are rendering `<Application />` down below, so we need React.createElement
 */
 import React from "react";
+import axios from "axios";
 import { waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, queryByAltText } from "@testing-library/react";
 
 /*
@@ -161,5 +162,18 @@ describe("Application", () => {
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
 
     // debug();
+  });
+
+  /* test number five */
+  it("shows the save error when failing to save an appointment", () => {
+    axios.put.mockRejectedValueOnce();
+  });
+
+  it("shows the save error when failing to save an appointment", async () => {
+   
+  });
+
+  it("shows the delete error when failing to delete an existing appointment", () => {
+
   });
 });
