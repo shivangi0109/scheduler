@@ -188,6 +188,7 @@ describe("Application", () => {
 
     fireEvent.click(getByText(appointment, "Save"));
 
+    // Check that the "Saving" indicator is displayed.
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
     // Wait until the error message shows
@@ -197,7 +198,37 @@ describe("Application", () => {
     expect(getByText(appointment, "Could not book appointment.")).toBeInTheDocument();
   });
 
-  it("shows the delete error when failing to delete an existing appointment", () => {
+  it("shows the delete error when failing to delete an existing appointment", async () => {
+    axios.delete.mockRejectedValueOnce();
 
+    // 1. Render the Application.
+    const { container, debug } = render(<Application />);
+
+    // 2. Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+    // console.log(prettyDOM(container));
+
+    // 3. Click the "Delete" button on the booked appointment.
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+    // console.log(prettyDOM(appointment));
+
+    fireEvent.click(queryByAltText(appointment, "Delete"));
+
+    // 4. Check that the confirmation message is shown.
+    expect(getByText(appointment, "Are you sure you would like to delete?")).toBeInTheDocument();
+
+    // 5. Click the "Confirm" button on the confirmation.
+    fireEvent.click(queryByText(appointment, "Confirm"));
+
+    // 6. Check that the element with the text "Deleting" is displayed.
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+
+    // 7. Wait until the error message shows
+    await waitForElement(() => getByText(appointment, "Error"));
+
+    // 8. Check that the error message is displayed
+    expect(getByText(appointment, "Could not cancel appointment.")).toBeInTheDocument();
   });
 });
