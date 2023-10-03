@@ -170,7 +170,31 @@ describe("Application", () => {
   });
 
   it("shows the save error when failing to save an appointment", async () => {
-   
+    axios.put.mockRejectedValueOnce();
+
+    const { container, debug } = render(<Application />);
+
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    const appointment = getAllByTestId(container, "appointment")[0];
+    fireEvent.click(getByAltText(appointment, "Add"));
+    // console.log(prettyDOM(appointment));
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    fireEvent.click(getByText(appointment, "Save"));
+
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    // Wait until the error message shows
+    await waitForElement(() => getByText(appointment, "Error"));
+
+    // Check that the error message is displayed
+    expect(getByText(appointment, "Could not book appointment.")).toBeInTheDocument();
   });
 
   it("shows the delete error when failing to delete an existing appointment", () => {
