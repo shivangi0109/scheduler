@@ -1,2 +1,7 @@
 node_modules
 coverage/
+# Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/fixtures/
+cypress.env.json
