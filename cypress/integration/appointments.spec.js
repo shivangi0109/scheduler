@@ -63,3 +63,7 @@ describe("Appointment", () => {
     cy.contains('.appointment__card--show', 'Archie Cohen').should('not.exist');
   });
 });
+
+// Don't target elements based on CSS attributes such as: id, class, tag
+// Don't target elements that may change their textContent
+// Add data-* attributes to make it easier to target elements
