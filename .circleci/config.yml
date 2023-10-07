@@ -31,9 +31,9 @@ jobs:
             - "c3:6f:95:07:4e:22:c9:ad:fb:c2:8e:c2:72:86:c4:7e"
       - checkout
       - run:
-          name: Push Master to Production
+          name: Push Main to Production
           command: |
-            git push https://git@github.com/shivangi0109/scheduler.git master:production
+            git push https://git@github.com/shivangi0109/scheduler.git main:production
 
 workflows:
   version: 2
