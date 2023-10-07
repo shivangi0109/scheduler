@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Push Main to Production
           command: |
-            git push https://git@github.com/shivangi0109/scheduler.git main:production
+            git push https://github.com/shivangi0109/scheduler.git main:production
 
 workflows:
   version: 2
