@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function useVisualMode(initial) {
-  const [mode, setMode] = useState(initial);
+  // const [mode, setMode] = useState(initial);
   // We will need to keep track of the history of the modes, so we can go backwards to a previous mode. We can store this history as a stateful array called history in our Hook.
   const [history, setHistory] = useState([initial]);
 
